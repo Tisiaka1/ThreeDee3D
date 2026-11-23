@@ -1,0 +1,56 @@
+<ContentPage
+    x:Class="ThreeDEE.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="{AppThemeBinding Light=#F5F6F8, Dark=#15171A}">
+
+    <Grid x:Name="SplitLayout" ColumnSpacing="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="LeftColumn" Width="3*" />
+            <ColumnDefinition Width="12" />
+            <ColumnDefinition x:Name="RightColumn" Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Padding="24" RowDefinitions="Auto,Auto,*" RowSpacing="16">
+            <Grid ColumnDefinitions="*,Auto">
+                <Label Text="Notes" FontSize="24" FontAttributes="Bold" VerticalOptions="Center" />
+                <Button Grid.Column="1" Text="Save" Clicked="OnSaveNoteClicked" />
+            </Grid>
+            <Label x:Name="NoteStatusLabel" Grid.Row="1" Text="Ready" FontSize="12" TextColor="Gray" />
+            <Editor x:Name="NotesEditor"
+                    Grid.Row="2"
+                    Placeholder="Write your notes here..."
+                    AutoSize="TextChanges"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="Transparent"
+                    TextChanged="OnNotesTextChanged" />
+        </Grid>
+
+        <Grid Grid.Column="1"
+              BackgroundColor="{AppThemeBinding Light=#E3E6EA, Dark=#353A40}">
+            <Grid.GestureRecognizers>
+                <PanGestureRecognizer PanUpdated="OnDividerPanUpdated" />
+            </Grid.GestureRecognizers>
+            <Border x:Name="DragHandle"
+                    Margin="2,0"
+                    BackgroundColor="{AppThemeBinding Light=#AAB1BA, Dark=#737C86}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 4"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    WidthRequest="4"
+                    HeightRequest="48">
+            </Border>
+        </Grid>
+
+        <Grid Grid.Column="2" Padding="20" RowDefinitions="Auto,*" RowSpacing="16">
+            <Label Text="Live transcript" FontSize="20" FontAttributes="Bold" LineBreakMode="TailTruncation" />
+            <Border Grid.Row="1" Padding="14" Stroke="#D4D8DE" StrokeShape="RoundRectangle 10">
+                <Label Text="Transcribed audio appears here as it is recognized."
+                       TextColor="Gray"
+                       VerticalOptions="Start" />
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>
